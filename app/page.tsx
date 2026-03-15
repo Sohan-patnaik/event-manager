@@ -1,8 +1,10 @@
 import EventCard from "@/components/EventCard";
 import ExploreBtn from "@/components/ExploreBtn";
-import { events } from "@/lib/constant";
+import { IEvent } from "@/database";
 
-const page = () => {
+const page = async () => {
+  const response=await fetch('http://localhost:3000/api/events')
+  const {events}=await response.json()
   return (
     <div>
       <section>
@@ -17,7 +19,7 @@ const page = () => {
         <div className="mt-4">
           <h2>Featured Events</h2>
           <ul className="events">
-            {events.map((event) => (
+            {events && events.map((event:IEvent) => (
               <li key={event.title}>
                 <EventCard {...event} />
               </li>
